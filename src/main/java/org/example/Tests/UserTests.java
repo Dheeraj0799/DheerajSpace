@@ -34,7 +34,7 @@ public class UserTests {
             Assert.assertEquals(response.getStatusCode(),200);
     }
     @Test(priority = 4)
-    public void testUpdateUser() {
+    public void testUpdateUser() throws InterruptedException {
         userPayload.setFirstname(fake.name().firstName());
         userPayload.setLastname(fake.name().lastName());
         userPayload.setEmail(fake.internet().safeEmailAddress());
@@ -42,6 +42,7 @@ public class UserTests {
         response.then().log().body();
         Assert.assertEquals(response.getStatusCode(),200);
         //check wether data is updated or not.
+        Thread.sleep(2000);
         Response response1 =UserEndPoints.readUser(this.userPayload.getUsername());
         Assert.assertEquals(response1.getStatusCode(),200);
     }
@@ -51,5 +52,4 @@ public class UserTests {
         response.then().log().all();
         Assert.assertEquals(response.getStatusCode(),200);
     }
-
     }
